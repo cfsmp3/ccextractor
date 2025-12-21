@@ -1,0 +1,52 @@
+Source: ccextractor
+Section: utils
+Priority: optional
+Maintainer: Carlos Fernandez Sanz <carlos@ccextractor.org>
+Build-Depends: debhelper-compat (= 13),
+               pkg-config,
+               autoconf,
+               automake,
+               libtool,
+               cargo,
+               rustc (>= 1.85),
+               clang,
+               libpng-dev,
+               zlib1g-dev,
+               libavcodec-dev,
+               libavformat-dev,
+               libavutil-dev,
+               libswscale-dev,
+               libavfilter-dev,
+               libswresample-dev,
+               libavdevice-dev,
+               libleptonica-dev (>= 1.74~),
+               libtesseract-dev (>= 4.0~),
+               libcurl4-gnutls-dev | libcurl4-openssl-dev,
+               libfreetype6-dev
+Standards-Version: 4.6.2
+Homepage: https://www.ccextractor.org/
+Vcs-Git: https://github.com/CCExtractor/ccextractor.git
+Vcs-Browser: https://github.com/CCExtractor/ccextractor
+Rules-Requires-Root: no
+
+Package: ccextractor
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: tesseract-ocr-eng
+Suggests: tesseract-ocr
+Description: closed captions and teletext subtitle extractor
+ CCExtractor is a tool that extracts closed captions and teletext subtitles
+ from video files and streams. It supports a wide variety of input formats
+ including MPEG, H.264/AVC, H.265/HEVC, MP4, MKV, WTV, and transport streams.
+ .
+ Supported caption formats:
+  - CEA-608 (EIA-608) - US analog closed captions
+  - CEA-708 (EIA-708) - US digital closed captions
+  - DVB subtitles - European digital subtitles
+  - Teletext - European broadcast text system
+  - ISDB - Japanese/Brazilian digital captions
+ .
+ Output formats include SRT, WebVTT, SAMI, transcript, and many others.
+ .
+ CCExtractor can also extract burned-in (hardcoded) subtitles using OCR
+ when built with Tesseract and FFmpeg support.

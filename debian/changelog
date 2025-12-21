@@ -1,0 +1,18 @@
+ccextractor (0.96-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Major changes since 0.88:
+    - Added Rust components (lib_ccxr) for improved safety and performance
+    - CEA-708 decoder rewritten in Rust
+    - Added HEVC/H.265 caption extraction support
+    - Added Korean EUC-KR encoding support in CEA-708
+    - Added DVB teletext stream detection in WTV files
+    - Added MCC output format support
+    - Added --list-tracks option to list media file tracks
+    - Improved DVB subtitle OCR quality
+    - Many bug fixes and memory safety improvements
+  * Updated build system to support Rust components
+  * Updated Standards-Version to 4.6.2
+  * Updated debhelper compatibility to 13
+
+ -- Carlos Fernandez Sanz <carlos@ccextractor.org>  Sat, 21 Dec 2025 12:00:00 +0000

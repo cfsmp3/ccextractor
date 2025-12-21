@@ -1,0 +1,43 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# Rust builds need HOME set
+export HOME = $(CURDIR)/debian/build-home
+
+%:
+	dh $@ --sourcedirectory=linux
+
+override_dh_auto_configure:
+	mkdir -p $(HOME)
+	cd linux && ./pre-build.sh
+	cd linux && ./autogen.sh
+	dh_auto_configure -- --enable-ocr --enable-hardsubx
+
+override_dh_auto_build:
+	dh_auto_build
+	# Build man page from help output if help2man is available
+	-help2man --no-info --name="closed captions and teletext subtitle extractor" \
+		./linux/ccextractor > debian/ccextractor.1 2>/dev/null || true
+
+override_dh_installchangelogs:
+	dh_installchangelogs docs/CHANGES.TXT
+
+override_dh_auto_clean:
+	# Clean up generated files, ignoring errors from stale Makefiles
+	-cd linux && [ -f Makefile ] && make distclean || true
+	rm -rf $(HOME)
+	rm -rf linux/autom4te.cache linux/build-conf
+	rm -f linux/Makefile linux/Makefile.in linux/aclocal.m4
+	rm -f linux/config.log linux/config.status linux/configure
+	rm -f linux/objs/*.o linux/ccextractor
+	rm -f linux/rust/release/libccx_rust.a linux/libccx_rust.a
+	rm -rf linux/rust
+	rm -f debian/ccextractor.1
+	find . -name "*.dll" -delete
+	find . -name "*.lib" -delete
+	dh_clean
+
+override_dh_auto_test:
+	# Skip tests during package build - they require sample media files
+	@echo "Skipping tests (require external media samples)"
