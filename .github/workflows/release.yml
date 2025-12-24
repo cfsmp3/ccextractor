@@ -65,7 +65,7 @@ jobs:
       run: mkdir installer; cp ./x64/Release-Full/ccextractorwinfull.exe ./installer; cp ./x64/Release-Full/*.dll ./installer
       working-directory: ./windows
     - name: install WiX
-      run: dotnet tool uninstall --global wix; dotnet tool install --global wix --version 6.0.2 && wix extension add -g WixToolset.UI.wixext/6.0.2
+      run: dotnet tool uninstall --global wix; dotnet tool install --global wix --version 4.0.6 && wix extension add -g WixToolset.UI.wixext/4.0.6
     - name: Make sure WiX works
       run: wix --version && wix extension list -g
     - name: Download Flutter GUI
